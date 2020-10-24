@@ -3,17 +3,16 @@ const DummyModel = db.dummyModel;
 
 exports.createDummy = (req, res) => {
   if (!req.body.itemName) {
-    res.status(400).send({
+    return res.status(400).send({
       message: 'Item name can not be empty!',
     });
-    return;
   }
 
   const dummy = ({ itemName, description } = req.body);
 
   DummyModel.create(dummy)
     .then((data) => {
-      res.send(data);
+      return res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
@@ -30,11 +29,11 @@ exports.deleteDummy = (req, res) => {
   })
     .then((num) => {
       if (num > 0) {
-        res.status(200).send({
+        return res.status(200).send({
           message: `${num} data was deleted successfully!`,
         });
       }
-      res.status(100).send({
+      return res.status(100).send({
         message: `Failed to delete. Data with id  is not available`,
       });
     })
@@ -48,7 +47,7 @@ exports.deleteDummy = (req, res) => {
 exports.getAllDummy = (req, res) => {
   DummyModel.findAll()
     .then((data) => {
-      res.send(data);
+      return res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
@@ -61,7 +60,7 @@ exports.getDummy = (req, res) => {
   const id = req.params.id;
   DummyModel.findByPk(id)
     .then((data) => {
-      res.send(data);
+      return res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
@@ -74,16 +73,16 @@ exports.updateDummy = (req, res) => {
   const id = req.params.id;
   const newDummy = req.body;
 
-  Tutorial.update(newDummy, {
+  DummyModel.update(newDummy, {
     where: { id: id },
   })
     .then((num) => {
       if (num > 0) {
-        res.status(200).send({
+        return res.status(200).send({
           message: `${num} data was updated successfully!`,
         });
       }
-      res.status(100).send({
+      return res.status(100).send({
         message: `Failed to update. Data with id ${id} is not available`,
       });
     })
