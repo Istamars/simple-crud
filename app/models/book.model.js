@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
-  const Dummy = sequelize.define('dummy', {
-    itemName: {
+  const Book = sequelize.define('book', {
+    bookName: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -9,5 +9,5 @@ module.exports = (sequelize, Sequelize) => {
     },
   });
 
-  return Dummy;
+  return Book;
 };
